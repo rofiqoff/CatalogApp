@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.test.catalogapp.data.source.local.dao.FavoriteProductDao
 import id.test.catalogapp.data.source.local.dao.ProductDao
 import id.test.catalogapp.data.source.local.database.AppDatabase
 
@@ -27,11 +26,6 @@ object DatabaseModule {
     @Provides
     fun provideProductDao(database: AppDatabase): ProductDao {
         return database.productDao()
-    }
-
-    @Provides
-    fun provideFavoriteProductDao(database: AppDatabase): FavoriteProductDao {
-        return database.favoriteProductDao()
     }
 
 }

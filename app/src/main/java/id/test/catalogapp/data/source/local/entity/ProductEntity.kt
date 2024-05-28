@@ -12,6 +12,7 @@ data class ProductEntity(
     @ColumnInfo("name") val name: String,
     @ColumnInfo("description") val description: String,
     @ColumnInfo("image_url") val imageUrl: String,
+    @ColumnInfo("is_favorite") val isFavorite: Boolean = false,
 ) {
 
     val asProduct
@@ -19,9 +20,9 @@ data class ProductEntity(
             id = productId,
             name = name,
             description = description,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            isFavorite = isFavorite
         )
-
 }
 
 fun List<ProductEntity>.asProductList(): List<Product> {
