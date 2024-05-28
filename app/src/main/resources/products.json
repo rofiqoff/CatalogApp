@@ -1,0 +1,20 @@
+[
+  {
+    "productId": "",
+    "name": "Test Name 1",
+    "description": "Test Description 1",
+    "imageUrl": "Test url 1"
+  },
+  {
+    "productId": "",
+    "name": "Test Name 2",
+    "description": "Test Description 2",
+    "imageUrl": "Test url 2"
+  },
+  {
+    "productId": "",
+    "name": "Test Name 3",
+    "description": "Test Description 3",
+    "imageUrl": "Test url 3"
+  }
+]
