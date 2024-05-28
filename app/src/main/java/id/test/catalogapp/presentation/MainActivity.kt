@@ -1,4 +1,4 @@
-package id.test.catalogapp.persentation
+package id.test.catalogapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -23,3 +23,7 @@ data class ProductEntity(
         )
 
 }
+
+fun List<ProductEntity>.asProductList(): List<Product> {
+    return this.map { it.asProduct }
+}

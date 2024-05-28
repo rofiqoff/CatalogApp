@@ -1,7 +1,7 @@
 package id.test.catalogapp.domain.repositories
 
 import id.test.catalogapp.domain.model.Product
-import id.test.catalogapp.data.utils.DataState
+import id.test.catalogapp.domain.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
