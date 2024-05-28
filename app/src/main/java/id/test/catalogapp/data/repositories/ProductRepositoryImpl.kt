@@ -1,8 +1,6 @@
 package id.test.catalogapp.data.repositories
 
-import id.test.catalogapp.data.source.local.dao.FavoriteProductDao
 import id.test.catalogapp.data.source.local.dao.ProductDao
-import id.test.catalogapp.data.source.local.entity.FavoriteProductEntity
 import id.test.catalogapp.data.source.local.entity.ProductEntity
 import id.test.catalogapp.data.source.local.entity.asProductList
 import id.test.catalogapp.domain.model.Product
@@ -16,7 +14,6 @@ import java.util.UUID
 
 class ProductRepositoryImpl(
     private val productDao: ProductDao,
-    private val favoriteProductDao: FavoriteProductDao,
 ) : ProductRepository {
 
     override fun getAllProducts(): Flow<DataState<List<Product>>> = flow {
@@ -44,22 +41,12 @@ class ProductRepositoryImpl(
     }.asDataState()
 
     override fun getAllFavoriteProducts(): Flow<DataState<List<Product>>> = flow {
-        val favoritesProduct = favoriteProductDao.getAllFavoriteProducts()
-        val productIds = favoritesProduct.map { it.productId }
-
-        val products = productDao.getAllProductsByIds(productIds).asProductList()
-
-        emit(products)
+        val favoritesProduct = productDao.getAllProducts().filter { it.isFavorite }.asProductList()
+        emit(favoritesProduct)
     }.asDataState()
 
-    override fun insertToFavorite(productId: String): Flow<DataState<Boolean>> = flow {
-        val data = FavoriteProductEntity(productId = productId)
-        favoriteProductDao.insertToFavorite(data)
-        emit(true)
-    }.asDataState()
-
-    override fun deleteProductFromFavorite(productId: String): Flow<DataState<Boolean>> = flow {
-        favoriteProductDao.deleteFavorite(productId)
+    override fun updateAsFavorite(productId: String, isFavorite: Boolean) = flow {
+        productDao.updateIsFavoriteProduct(productId, isFavorite)
         emit(true)
     }.asDataState()
 }

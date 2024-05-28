@@ -14,8 +14,5 @@ interface ProductRepository {
 
     fun getAllFavoriteProducts(): Flow<DataState<List<Product>>>
 
-    fun insertToFavorite(productId: String): Flow<DataState<Boolean>>
-
-    fun deleteProductFromFavorite(productId: String): Flow<DataState<Boolean>>
-
+    fun updateAsFavorite(productId: String, isFavorite: Boolean): Flow<DataState<Boolean>>
 }

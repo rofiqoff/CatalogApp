@@ -2,7 +2,6 @@ package id.test.catalogapp.presentation.product
 
 import app.cash.turbine.turbineScope
 import id.test.catalogapp.data.repositories.ProductRepositoryImpl
-import id.test.catalogapp.data.source.local.dao.FavoriteProductDao
 import id.test.catalogapp.data.source.local.dao.ProductDao
 import id.test.catalogapp.data.source.local.entity.ProductEntity
 import id.test.catalogapp.data.source.local.entity.asProductList
@@ -26,7 +25,6 @@ class ProductViewModelTest {
     var mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var productDao: ProductDao
-    private lateinit var favoriteProductDao: FavoriteProductDao
 
     private lateinit var repository: ProductRepository
     private lateinit var viewmodel: ProductViewModel
@@ -36,8 +34,8 @@ class ProductViewModelTest {
     @Before
     fun setUp() {
         productDao = mock()
-        favoriteProductDao = mock()
-        repository = ProductRepositoryImpl(productDao, favoriteProductDao)
+
+        repository = ProductRepositoryImpl(productDao)
         viewmodel = ProductViewModel(repository)
     }
 

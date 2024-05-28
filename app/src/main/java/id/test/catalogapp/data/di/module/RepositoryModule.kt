@@ -5,7 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import id.test.catalogapp.data.repositories.ProductRepositoryImpl
-import id.test.catalogapp.data.source.local.dao.FavoriteProductDao
 import id.test.catalogapp.data.source.local.dao.ProductDao
 import id.test.catalogapp.domain.repositories.ProductRepository
 
@@ -14,11 +13,8 @@ import id.test.catalogapp.domain.repositories.ProductRepository
 object RepositoryModule {
 
     @Provides
-    fun provideProductRepository(
-        productDao: ProductDao,
-        favoriteProductDao: FavoriteProductDao,
-    ): ProductRepository {
-        return ProductRepositoryImpl(productDao, favoriteProductDao)
+    fun provideProductRepository(productDao: ProductDao): ProductRepository {
+        return ProductRepositoryImpl(productDao)
     }
 
 }

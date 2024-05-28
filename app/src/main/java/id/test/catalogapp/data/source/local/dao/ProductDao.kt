@@ -15,13 +15,13 @@ interface ProductDao {
     @Query("SELECT * FROM product WHERE name LIKE :keyword OR description LIKE :keyword")
     suspend fun findProductByKeyword(keyword: String): List<ProductEntity>
 
-    @Query("SELECT * FROM product WHERE product_id IN (:productIds)")
-    suspend fun getAllProductsByIds(productIds: List<String>): List<ProductEntity>
-
     @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
     suspend fun getProduct(id: String): ProductEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllProduct(products: List<ProductEntity>)
+
+    @Query("UPDATE product SET is_favorite = :isFavorite WHERE product_id = :productId")
+    suspend fun updateIsFavoriteProduct(productId: String, isFavorite: Boolean)
 
 }
