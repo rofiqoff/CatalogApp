@@ -5,7 +5,6 @@ import id.test.catalogapp.data.repositories.ProductRepositoryImpl
 import id.test.catalogapp.data.source.local.dao.ProductDao
 import id.test.catalogapp.data.source.local.entity.ProductEntity
 import id.test.catalogapp.data.source.local.entity.asProductList
-import id.test.catalogapp.domain.repositories.ProductRepository
 import id.test.catalogapp.domain.utils.StringParser
 import id.test.catalogapp.presentation.utils.UiState
 import id.test.catalogapp.utils.MainDispatcherRule
@@ -26,7 +25,6 @@ class ProductViewModelTest {
 
     private lateinit var productDao: ProductDao
 
-    private lateinit var repository: ProductRepository
     private lateinit var viewmodel: ProductViewModel
 
     private val dataMock get() = StringParser.resourceToList<ProductEntity>("products.json")
@@ -35,7 +33,7 @@ class ProductViewModelTest {
     fun setUp() {
         productDao = mock()
 
-        repository = ProductRepositoryImpl(productDao)
+        val repository = ProductRepositoryImpl(productDao)
         viewmodel = ProductViewModel(repository)
     }
 
@@ -57,11 +55,11 @@ class ProductViewModelTest {
 
                 val actualData = data.awaitItem()
 
-                /* check return state is success */
+                /* validate return state is success */
                 val isSuccess = actualData is UiState.Success
                 assertEquals(true, isSuccess)
 
-                /* check return data entity */
+                /* validate return data entity is not empty */
                 val dataSize = (actualData as UiState.Success).data.size
                 assertEquals(dataMock.size, dataSize)
                 assertEquals(dataMock.asProductList(), actualData.data)
