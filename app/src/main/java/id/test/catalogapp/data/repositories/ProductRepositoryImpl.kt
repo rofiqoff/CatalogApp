@@ -17,17 +17,20 @@ class ProductRepositoryImpl(
 ) : ProductRepository {
 
     override fun getAllProducts(): Flow<DataState<List<Product>>> = flow {
-        val productLocalData = productDao.getAllProducts().asProductList()
-        if (productLocalData.isEmpty()) {
+        val localData = productDao.getAllProducts().asProductList()
+
+        if (localData.isEmpty()) {
             val productsDataFromSource = resourceToList<ProductEntity>("products.json").map {
                 it.copy(productId = UUID.randomUUID().toString())
             }
             productDao.insertAllProduct(productsDataFromSource)
 
-            emit(productsDataFromSource.asProductList())
-        } else {
+            val productLocalData = productDao.getAllProducts().asProductList()
             emit(productLocalData)
+        } else {
+            emit(localData)
         }
+
     }.asDataState()
 
     override fun getProductsByKeyword(key: String): Flow<DataState<List<Product>>> = flow {

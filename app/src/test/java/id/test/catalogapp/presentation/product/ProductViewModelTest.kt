@@ -67,7 +67,7 @@ class ProductViewModelTest {
         }
 
     @Test
-    fun givenEmptyDataList_whenGetAllProductsDataFromDatabase_shouldReturnSuccessWithDataList() =
+    fun givenEmptyDataList_whenGetAllProductsDataFromDatabase_shouldReturnSuccessEmptyDataList() =
         runTest {
             turbineScope {
                 // Given
@@ -88,7 +88,7 @@ class ProductViewModelTest {
 
                 /* check return data entity */
                 val dataSize = (actualData as UiState.Success).data.size
-                assertEquals(3, dataSize)
+                assertEquals(0, dataSize)
             }
         }
 
