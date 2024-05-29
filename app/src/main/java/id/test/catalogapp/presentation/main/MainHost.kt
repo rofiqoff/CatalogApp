@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import id.test.catalogapp.presentation.detail.ProductDetailScreen
 import id.test.catalogapp.presentation.favorite.FavoriteScreen
 import id.test.catalogapp.presentation.main.bottomnavigation.BottomNavBarItem
 import id.test.catalogapp.presentation.product.ProductScreen
@@ -23,11 +24,15 @@ fun MainHost(
     ) {
 
         composable(BottomNavBarItem.Product.route) {
-            ProductScreen()
+            ProductScreen(navHostController = navHostController)
         }
 
         composable(BottomNavBarItem.Favorite.route) {
-            FavoriteScreen()
+            FavoriteScreen(navHostController = navHostController)
+        }
+
+        composable("detail/{productId}") {
+            ProductDetailScreen(navHostController = navHostController)
         }
 
     }

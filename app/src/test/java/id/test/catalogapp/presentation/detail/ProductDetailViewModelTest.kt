@@ -1,5 +1,6 @@
 package id.test.catalogapp.presentation.detail
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.turbineScope
 import id.test.catalogapp.data.repositories.ProductRepositoryImpl
 import id.test.catalogapp.data.source.local.dao.ProductDao
@@ -31,8 +32,11 @@ class ProductDetailViewModelTest {
     fun setUp() {
         productDao = Mockito.mock()
 
+        val savedStateHandle = SavedStateHandle()
+        savedStateHandle["productId"] = "productId"
+
         val repository = ProductRepositoryImpl(productDao)
-        viewmodel = ProductDetailViewModel(repository)
+        viewmodel = ProductDetailViewModel(repository, savedStateHandle)
     }
 
     @Test
@@ -41,14 +45,14 @@ class ProductDetailViewModelTest {
             // Given
             val productId = "productId"
 
-            val result = dataMock.first().copy(productId = productId)
+            val result = listOf(dataMock.first().copy(productId = productId))
             `when`(productDao.getProduct(anyString())).thenReturn(result)
 
             val data = viewmodel.productData.testIn(backgroundScope)
             data.awaitItem()
 
             // When
-            viewmodel.getProductDetail(productId)
+            viewmodel.getProductDetail()
 
             // Then
             verify(productDao).getProduct(productId)
@@ -61,7 +65,7 @@ class ProductDetailViewModelTest {
 
             /* validate return data is correct */
             val dataProduct = (actualData as UiState.Success).data
-            assertEquals(result.asProduct, dataProduct)
+            assertEquals(result.map { it.asProduct }.first(), dataProduct)
         }
     }
 

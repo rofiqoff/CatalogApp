@@ -39,7 +39,7 @@ class ProductRepositoryImpl(
     }.asDataState()
 
     override fun getProduct(productId: String): Flow<DataState<Product>> = flow {
-        val results = productDao.getProduct(productId).asProduct
+        val results = productDao.getProduct(productId).map { it.asProduct }.first()
         emit(results)
     }.asDataState()
 

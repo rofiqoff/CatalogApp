@@ -15,8 +15,8 @@ interface ProductDao {
     @Query("SELECT * FROM product WHERE name LIKE '%'||:keyword||'%' OR description LIKE '%'||:keyword||'%'")
     suspend fun findProductByKeyword(keyword: String): List<ProductEntity>
 
-    @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
-    suspend fun getProduct(id: String): ProductEntity
+    @Query("SELECT * FROM product WHERE product_id = :productId LIMIT 1")
+    suspend fun getProduct(productId: String): List<ProductEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllProduct(products: List<ProductEntity>)
