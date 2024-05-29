@@ -12,7 +12,7 @@ interface ProductDao {
     @Query("SELECT * FROM product")
     suspend fun getAllProducts(): List<ProductEntity>
 
-    @Query("SELECT * FROM product WHERE name LIKE :keyword OR description LIKE :keyword")
+    @Query("SELECT * FROM product WHERE name LIKE '%'||:keyword||'%' OR description LIKE '%'||:keyword||'%'")
     suspend fun findProductByKeyword(keyword: String): List<ProductEntity>
 
     @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
@@ -23,5 +23,8 @@ interface ProductDao {
 
     @Query("UPDATE product SET is_favorite = :isFavorite WHERE product_id = :productId")
     suspend fun updateIsFavoriteProduct(productId: String, isFavorite: Boolean)
+
+    @Query("DELETE FROM product")
+    suspend fun clearProductData()
 
 }

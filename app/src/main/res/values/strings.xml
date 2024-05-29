@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Catalog App</string>
+
+    <string name="label_product">Product</string>
+    <string name="label_favorite">Favorite</string>
+
 </resources>

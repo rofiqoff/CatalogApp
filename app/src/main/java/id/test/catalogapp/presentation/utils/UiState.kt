@@ -10,4 +10,18 @@ sealed interface UiState<out T> {
     data class Error(val errorMessage: String) : UiState<Nothing>
 
     data object Idle : UiState<Nothing>
+
+    fun getDataContent(): T? {
+        return when (this) {
+            is Success -> data
+            else -> null
+        }
+    }
+
+    fun getMessageError(): String {
+        return when (this) {
+            is Error -> errorMessage
+            else -> ""
+        }
+    }
 }
