@@ -11,6 +11,13 @@ sealed interface UiState<out T> {
 
     data object Idle : UiState<Nothing>
 
+    fun isSuccess(): Boolean {
+        return when (this) {
+            is Success -> true
+            else -> false
+        }
+    }
+
     fun getDataContent(): T? {
         return when (this) {
             is Success -> data

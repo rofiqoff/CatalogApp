@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import id.test.catalogapp.domain.model.Product
+import id.test.catalogapp.ui.component.EmptyView
 
 @Composable
 fun ProductListView(
@@ -17,15 +18,19 @@ fun ProductListView(
     modifier: Modifier = Modifier,
     onItemClick: (String) -> Unit = {},
 ) {
-    LazyVerticalGrid(
-        modifier = modifier.padding(16.dp),
-        columns = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(products) {
-            ProductItem(it) { productId ->
-                onItemClick.invoke(productId)
+    if (products.isEmpty()) {
+        EmptyView()
+    } else {
+        LazyVerticalGrid(
+            modifier = modifier.padding(16.dp),
+            columns = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(products) {
+                ProductItem(it) { productId ->
+                    onItemClick.invoke(productId)
+                }
             }
         }
     }

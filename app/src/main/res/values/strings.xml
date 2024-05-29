@@ -4,4 +4,6 @@
     <string name="label_product">Product</string>
     <string name="label_favorite">Favorite</string>
 
+    <string name="label_detail">Detail</string>
+
 </resources>

@@ -20,11 +20,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import id.test.catalogapp.domain.model.Product
 
@@ -45,7 +43,7 @@ fun ProductItem(
                     model = product.imageUrl,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(150.dp)
                         .padding(2.dp)
                         .clip(RoundedCornerShape(4)),
                     contentScale = ContentScale.Crop,
@@ -69,10 +67,8 @@ fun ProductItem(
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 text = product.name,
-                fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
                 color = Color.Black,
-                fontSize = 16.sp,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
